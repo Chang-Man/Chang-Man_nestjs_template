@@ -1,0 +1,33 @@
+version: '3.5'
+
+services:
+  app:
+    container_name: nest-docker-mysql
+    build:
+      dockerfile: Dockerfile
+      context: .
+      # Only will build development stage from our dockerfile
+      target: development
+    env_file:
+      - .env
+    command: npm run start:dev
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  db:
+    container_name: mysql
+    image: mysql:8.0
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      TZ: Asia/Seoul
+    platform: linux/x86_64
+    volumes:
+      - ./docker-volume/mysql:/var/lib/mysql
