@@ -9,7 +9,7 @@ export class UserRepository extends GenericRepository<User> {
     super(dataSource, User);
   }
 
-  async findByEmail(email: string) {
-    return this._repository.findOneBy({ email });
+  async findByPhone(phone: string) {
+    return this._repository.findOneBy({ phone });
   }
 }

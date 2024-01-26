@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -11,22 +12,21 @@ import { IUser } from '../interfaces/user.interface';
   name: 'users',
 })
 export class User implements IUser {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+  @Column({ type: 'varchar', length: 13 })
+  phone: string;
+  @Column({ type: 'tinyint' })
+  age: number;
   @Column({ type: 'varchar', length: 20 })
-  name: string;
-  @Column({ type: 'varchar', length: 60 })
-  password: string;
-  @Column({ type: 'varchar', length: 40 })
-  email: string;
+  nickname: string;
+  @Column({ type: 'text' })
+  profile_img: string;
+  @Column({ type: 'boolean' })
+  marketing_agree: boolean;
+
   @CreateDateColumn()
   createdAt: string;
   @UpdateDateColumn()
   updatedAt: string;
-
-  constructor(email: string, password: string, name: string) {
-    this.email = email;
-    this.password = password;
-    this.name = name;
-  }
 }

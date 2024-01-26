@@ -1,5 +1,7 @@
 export interface IUser {
-  name: string;
-  email: string;
-  password: string;
+  phone: string;
+  age: number;
+  nickname: string;
+  marketing_agree: boolean;
+  profile_img: string;
 }
