@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { GenericRepository } from 'src/common/typeorm/typeorm.repository';
 import { User } from './entities/user.entity';
-import { DataSource } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 
 @Injectable()
-export class UserRepository extends GenericRepository<User> {
-  constructor(dataSource: DataSource) {
-    super(dataSource, User);
+export class UsersRepository extends Repository<User> {
+  constructor(private dataSource: DataSource) {
+    super(User, dataSource.createEntityManager());
   }
-
   async findByPhone(phone: string) {
-    return this._repository.findOneBy({ phone });
+    return await this.findOneBy({ phone });
   }
 }
