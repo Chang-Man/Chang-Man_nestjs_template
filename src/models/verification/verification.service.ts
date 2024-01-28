@@ -15,7 +15,7 @@ export class VerificationService {
     private readonly aligoApiConfigService: AligoApiConfigService,
     private readonly httpService: HttpService,
   ) {}
-  async sendCodeMessage(verification: Verification) {
+  async sendCodeMessage(verification: Verification): Promise<Verification> {
     const verificationHistory = await this.verificationRepository.findBy({
       phone: verification.phone,
     });
@@ -55,7 +55,7 @@ export class VerificationService {
     }
   }
 
-  async verifyCode(verification: Verification) {
+  async verifyCode(verification: Verification): Promise<void> {
     const compareVerification = await this.verificationRepository.findOneBy({
       phone: verification.phone,
     });
@@ -78,5 +78,13 @@ export class VerificationService {
     }
     compareVerification.verified = true;
     await this.verificationRepository.save(compareVerification);
+  }
+
+  async findOneByPhone(phone: string): Promise<Verification> {
+    return await this.verificationRepository.findOneBy({ phone });
+  }
+
+  async removeCheckedVerification(verification: Verification): Promise<void> {
+    await this.verificationRepository.remove(verification);
   }
 }

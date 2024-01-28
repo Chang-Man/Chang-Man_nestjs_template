@@ -15,7 +15,17 @@ export class AuthService {
   ) {}
   async register(user: User): Promise<{ accessToken: string }> {
     const userFind = await this.userService.findByPhone(user.phone);
+    const verification = await this.verificationService.findOneByPhone(
+      user.phone,
+    );
+
     if (userFind) throw new BadRequestException('already exist user');
+    if (!verification || !verification.verified)
+      throw new BadRequestException(
+        '인증되지 않은 번호 입니다. 문자 인증을 처음부터 진행해주세요.',
+      );
+
+    await this.verificationService.removeCheckedVerification(verification);
     await this.userService.create(user);
     const payload: Payload = { id: user.id, phone: user.phone };
     return {
