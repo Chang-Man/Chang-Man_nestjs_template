@@ -7,10 +7,12 @@ import { JwtConfigModule } from 'src/config/jwt/config.module';
 import { JwtConfigService } from 'src/config/jwt/config.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
+import { VerificationModule } from 'src/models/verification/verification.module';
 
 @Module({
   imports: [
     UserModule,
+    VerificationModule,
     JwtConfigModule,
     JwtModule.registerAsync({
       imports: [JwtConfigModule],
