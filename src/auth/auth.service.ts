@@ -24,10 +24,7 @@ export class AuthService {
   }
 
   async verifyPhone(verification: Verification): Promise<{ code: string }> {
-    await this.verificationService.verify(verification.phone);
-    // if (userFind) throw new BadRequestException('already exist user');
-    // await this.userService.create(user);
-    // const payload: Payload = { id: user.id, phone: user.phone };
+    await this.verificationService.verify(verification);
     return { code: verification.code };
   }
 }

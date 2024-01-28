@@ -20,4 +20,4 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   providers: [ConfigService, AligoApiConfigService],
   exports: [ConfigService, AligoApiConfigService],
 })
-export class JwtConfigModule {}
+export class AligoApiConfigModule {}

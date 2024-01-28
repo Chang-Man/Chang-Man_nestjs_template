@@ -5,5 +5,5 @@ export default registerAs('aligoapi', () => ({
   aligoApiKey: process.env.ALIGO_API_KEY,
   aligoUser: process.env.ALIGO_USER_ID,
   aligoSenderKey: process.env.ALIGO_SENDER_KEY,
-  alignSenderPhone: process.env.ALIGO_SENDER_PHONE,
+  aligoSenderPhone: process.env.ALIGO_SENDER_PHONE,
 }));
