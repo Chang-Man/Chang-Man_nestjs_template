@@ -13,6 +13,6 @@ import { MysqlDatabaseProviderModule } from './providers/database/mysql/provider
     AuthModule,
   ],
   controllers: [],
-  providers: [UserService],
+  providers: [],
 })
 export class AppModule {}

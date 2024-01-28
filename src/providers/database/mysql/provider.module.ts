@@ -4,7 +4,7 @@ import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { MysqlConfigModule } from '../../../config/database/mysql/config.module';
 import { MysqlConfigService } from '../../../config/database/mysql/config.service';
 import { User } from 'src/models/user/entity/user.entity';
-import { Verification } from 'src/auth/entities/verification.entity';
+import { Verification } from 'src/models/verifications/entity/verification.entity';
 
 @Module({
   imports: [

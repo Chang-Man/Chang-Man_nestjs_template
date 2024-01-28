@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { UsersService } from 'src/models/user/user.service';
+import { UserService } from 'src/models/user/user.service';
 import { User } from 'src/models/user/entity/user.entity';
 import { Payload } from './interfaces/payload.interface';
 import { JwtService } from '@nestjs/jwt';
@@ -7,7 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UsersService,
+    private userService: UserService,
     private jwtService: JwtService,
   ) {}
   async register(user: User): Promise<{ accessToken: string }> {
