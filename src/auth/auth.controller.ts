@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { RegisterRequestDto } from './dto/register.dto';
 import { ResponseEntity } from 'src/common/res/response-entity';
 import { LoginRequestDto } from './dto/login.dto';
+import { VerifyRequestDto } from 'src/models/verification/dtos/verification.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -21,5 +22,13 @@ export class AuthController {
     } catch (e) {
       return ResponseEntity.ERROR_WITH('회원가입에 실패하였습니다.');
     }
+  }
+
+  @Post('verification')
+  async phoneVerification(@Body() dto: VerifyRequestDto) {
+    try {
+      const code = await this.authService.verifyPhone(dto.toEntity());
+      return ResponseEntity.OK_WITH(code);
+    } catch (e) {}
   }
 }

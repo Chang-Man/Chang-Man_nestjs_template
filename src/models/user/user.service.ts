@@ -9,7 +9,7 @@ export class UserService {
   async findByPhone(phone: string): Promise<User | undefined> {
     return this.userRepository.findOneBy({ phone });
   }
-  async create(user: User) {
+  async create(user: User): Promise<void> {
     await this.userRepository.save(user);
   }
 }

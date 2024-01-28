@@ -8,7 +8,7 @@ import {
 import { getRandomElementFromArray } from 'src/common/utils/random';
 
 @Entity({
-  name: 'users',
+  name: 'user',
 })
 export class User extends BaseTimeEntity implements IUser {
   @Column({ type: 'varchar', length: 13 })
