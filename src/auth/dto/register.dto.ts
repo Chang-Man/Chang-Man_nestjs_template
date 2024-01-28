@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { User } from 'src/models/users/entities/user.entity';
+import { User } from 'src/models/user/entity/user.entity';
 
 export class RegisterRequestDto {
   @Expose()

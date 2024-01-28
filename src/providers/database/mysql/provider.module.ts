@@ -3,7 +3,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { MysqlConfigModule } from '../../../config/database/mysql/config.module';
 import { MysqlConfigService } from '../../../config/database/mysql/config.service';
-import { User } from 'src/models/users/entities/user.entity';
+import { User } from 'src/models/user/entity/user.entity';
+import { Verification } from 'src/auth/entities/verification.entity';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { User } from 'src/models/users/entities/user.entity';
         username: mysqlConfigService.username,
         password: mysqlConfigService.password,
         database: mysqlConfigService.name,
-        entities: [User],
+        entities: [User, Verification],
         migrations: ['dist/config/database/migrations/*{.ts,.js}'],
         autoLoadEntities: true,
         // false in prod

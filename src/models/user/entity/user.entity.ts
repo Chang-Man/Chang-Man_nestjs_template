@@ -1,5 +1,5 @@
 import { Column, Entity } from 'typeorm';
-import { IUser } from '../interfaces/user.interface';
+import { IUser } from '../interface/user.interface';
 import { BaseTimeEntity } from 'src/common/base/base-time.entity';
 import {
   NICKNAME_ADJECTIVE,
