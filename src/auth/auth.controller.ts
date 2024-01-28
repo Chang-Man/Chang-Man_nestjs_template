@@ -2,7 +2,6 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterRequestDto } from './dto/register.dto';
 import { ResponseEntity } from 'src/common/res/response-entity';
-import { LoginRequestDto } from './dto/login.dto';
 import {
   VerifyCodeRequestDto,
   VerifyRequestDto,
@@ -11,11 +10,6 @@ import {
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
-
-  // @Post('login')
-  // signIn(@Body() loginDto: LoginRequestDto) {
-  //   return this.authService.signIn();
-  // }
 
   @Post('register')
   async signup(@Body() dto: RegisterRequestDto) {
@@ -40,8 +34,12 @@ export class AuthController {
   @Post('verify/code')
   async codeVerification(@Body() dto: VerifyCodeRequestDto) {
     try {
-      await this.authService.verifyCode(dto.toEntity());
-      return ResponseEntity.OK();
+      const accessToken = await this.authService.verifyCode(dto.toEntity());
+      if (accessToken) {
+        return ResponseEntity.OK_WITH(accessToken);
+      } else {
+        return ResponseEntity.OK_WITH('register');
+      }
     } catch (e) {
       return ResponseEntity.ERROR_WITH(e.response.message);
     }

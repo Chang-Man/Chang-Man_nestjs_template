@@ -13,6 +13,12 @@ export class AuthService {
     private verificationService: VerificationService,
     private jwtService: JwtService,
   ) {}
+  async login(): Promise<{ accessToken: string }> {
+    return {
+      accessToken: '',
+    };
+  }
+
   async register(user: User): Promise<{ accessToken: string }> {
     const userFind = await this.userService.findByPhone(user.phone);
     const verification = await this.verificationService.findOneByPhone(
@@ -38,7 +44,19 @@ export class AuthService {
       await this.verificationService.sendCodeMessage(verification);
     return createdVerification;
   }
-  async verifyCode(verification: Verification): Promise<void> {
-    await this.verificationService.verifyCode(verification);
+  async verifyCode(
+    verification: Verification,
+  ): Promise<{ accessToken: string } | null> {
+    const result = await this.verificationService.verifyCode(verification);
+    const user = await this.userService.findByPhone(verification.phone);
+    if (user) {
+      await this.verificationService.removeCheckedVerification(result);
+      // 휴대폰으로 시작하기로 휴대폰 인증 후 가입된 유저면 바로 로그인, 유저 정보가 없으면 register로
+      const payload: Payload = { id: user.id, phone: user.phone };
+      return {
+        accessToken: this.jwtService.sign(payload),
+      };
+    }
+    return null;
   }
 }

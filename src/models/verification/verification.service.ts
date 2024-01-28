@@ -55,7 +55,7 @@ export class VerificationService {
     }
   }
 
-  async verifyCode(verification: Verification): Promise<void> {
+  async verifyCode(verification: Verification): Promise<Verification> {
     const compareVerification = await this.verificationRepository.findOneBy({
       phone: verification.phone,
     });
@@ -77,7 +77,7 @@ export class VerificationService {
       throw new BadRequestException('인증 시간을 초과했습니다.');
     }
     compareVerification.verified = true;
-    await this.verificationRepository.save(compareVerification);
+    return await this.verificationRepository.save(compareVerification);
   }
 
   async findOneByPhone(phone: string): Promise<Verification> {
