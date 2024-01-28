@@ -12,12 +12,20 @@ export class Verification extends BaseTimeEntity {
   @Column({ type: 'varchar', length: 10 })
   code: string;
 
-  static verify(phone: string) {
+  static send(phone: string) {
     const verification = new Verification();
     verification.phone = phone;
     const randomNumber = Math.floor(Math.random() * 100000);
     const paddedNumber = randomNumber.toString().padStart(5, '0');
     verification.code = paddedNumber;
+    return verification;
+  }
+
+  static verify(phone: string, code: string) {
+    const verification = new Verification();
+    verification.phone = phone;
+    verification.code = code;
+    verification.createdAt = new Date();
     return verification;
   }
 }

@@ -5,6 +5,7 @@ import { AligoApiConfigService } from 'src/config/aligo-api/config.service';
 import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
 import { Verification } from './entity/verification.entity';
+import { VERIFICATION_TIME } from './constants/verification.constant';
 
 @Injectable()
 export class VerificationService {
@@ -14,7 +15,7 @@ export class VerificationService {
     private readonly aligoApiConfigService: AligoApiConfigService,
     private readonly httpService: HttpService,
   ) {}
-  async verify(verification: Verification) {
+  async sendCodeMessage(verification: Verification) {
     const verificationHistory = await this.verificationRepository.findBy({
       phone: verification.phone,
     });
@@ -52,5 +53,30 @@ export class VerificationService {
     } else {
       throw new BadRequestException();
     }
+  }
+
+  async verifyCode(verification: Verification) {
+    const compareVerification = await this.verificationRepository.findOneBy({
+      phone: verification.phone,
+    });
+    if (!compareVerification)
+      throw new BadRequestException(
+        '서버 에러: 처음부터 문자 인증을 다시 해주세요.',
+      );
+    if (compareVerification.code !== verification.code) {
+      throw new BadRequestException('인증번호가 다릅니다.');
+    }
+    const timeDifferenceInMinutes =
+      Math.abs(
+        compareVerification.createdAt.getTime() -
+          verification.createdAt.getTime(),
+      ) /
+      (1000 * 60);
+    if (timeDifferenceInMinutes > VERIFICATION_TIME) {
+      await this.verificationRepository.remove(compareVerification);
+      throw new BadRequestException('인증 시간을 초과했습니다.');
+    }
+    compareVerification.verified = true;
+    await this.verificationRepository.save(compareVerification);
   }
 }

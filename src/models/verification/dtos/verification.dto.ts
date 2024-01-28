@@ -9,12 +9,22 @@ export class VerifyRequestDto {
   phone: string;
 
   toEntity(): Verification {
-    return Verification.verify(this.phone);
+    return Verification.send(this.phone);
   }
 }
 
-export class VerificationDto {
+export class VerifyCodeRequestDto {
   @Expose()
+  @IsNotEmpty()
   @IsString()
   phone: string;
+
+  @Expose()
+  @IsNotEmpty()
+  @IsString()
+  code: string;
+
+  toEntity(): Verification {
+    return Verification.verify(this.phone, this.code);
+  }
 }
