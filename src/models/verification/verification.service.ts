@@ -48,7 +48,7 @@ export class VerificationService {
 
     // success send message with aligo-api
     if (sendResponse.result_code > 0) {
-      await this.verificationRepository.save(verification);
+      return await this.verificationRepository.save(verification);
     } else {
       throw new BadRequestException();
     }

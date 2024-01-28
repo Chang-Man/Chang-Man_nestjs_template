@@ -23,8 +23,9 @@ export class AuthService {
     };
   }
 
-  async verifyPhone(verification: Verification): Promise<{ code: string }> {
-    await this.verificationService.verify(verification);
-    return { code: verification.code };
+  async verifyPhone(verification: Verification): Promise<Verification> {
+    const createdVerification =
+      await this.verificationService.verify(verification);
+    return createdVerification;
   }
 }

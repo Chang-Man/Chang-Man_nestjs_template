@@ -1,7 +1,8 @@
+import { BaseTimeEntity } from 'src/common/base/base-time.entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Verification {
+export class Verification extends BaseTimeEntity {
   @PrimaryGeneratedColumn()
   id: number;
   @Column({ type: 'varchar', length: 13 })
