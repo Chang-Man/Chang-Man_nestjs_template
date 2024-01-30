@@ -15,7 +15,7 @@ export class VerificationService {
     private readonly aligoApiConfigService: AligoApiConfigService,
     private readonly httpService: HttpService,
   ) {}
-  async sendCodeMessage(verification: Verification): Promise<Verification> {
+  async sendCodeMessage(verification: Verification): Promise<void> {
     const verificationHistory = await this.verificationRepository.findBy({
       phone: verification.phone,
     });
@@ -49,7 +49,7 @@ export class VerificationService {
 
     // success send message with aligo-api
     if (sendResponse.result_code > 0) {
-      return await this.verificationRepository.save(verification);
+      await this.verificationRepository.save(verification);
     } else {
       throw new BadRequestException();
     }

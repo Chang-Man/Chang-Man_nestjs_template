@@ -24,8 +24,8 @@ export class AuthController {
   @Post('verify/send')
   async phoneVerification(@Body() dto: VerifyRequestDto) {
     try {
-      const verification = await this.authService.verifyPhone(dto.toEntity());
-      return ResponseEntity.OK_WITH(verification);
+      await this.authService.sendCode(dto.toEntity());
+      return ResponseEntity.OK();
     } catch (e) {
       return ResponseEntity.ERROR();
     }

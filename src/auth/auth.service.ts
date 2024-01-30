@@ -39,10 +39,8 @@ export class AuthService {
     };
   }
 
-  async verifyPhone(verification: Verification): Promise<Verification> {
-    const createdVerification =
-      await this.verificationService.sendCodeMessage(verification);
-    return createdVerification;
+  async sendCode(verification: Verification): Promise<void> {
+    await this.verificationService.sendCodeMessage(verification);
   }
   async verifyCode(
     verification: Verification,
