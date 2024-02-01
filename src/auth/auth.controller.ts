@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterRequestDto } from './dto/register.dto';
 import { ResponseEntity } from 'src/common/res/response-entity';
@@ -22,6 +22,7 @@ export class AuthController {
   }
 
   @Post('verify/send')
+  @HttpCode(200)
   async phoneVerification(@Body() dto: VerifyRequestDto) {
     try {
       await this.authService.sendCode(dto.toEntity());
@@ -32,6 +33,7 @@ export class AuthController {
   }
 
   @Post('verify/code')
+  @HttpCode(200)
   async codeVerification(@Body() dto: VerifyCodeRequestDto) {
     try {
       const accessToken = await this.authService.verifyCode(dto.toEntity());
