@@ -7,7 +7,6 @@ import { UserService } from 'src/api/user/user.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { User } from 'src/api/user/entity/user.entity';
-import { getHash } from 'src/common/utils/hash';
 import { Payload } from './interface/payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';

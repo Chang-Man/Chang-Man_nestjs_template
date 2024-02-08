@@ -1,4 +1,5 @@
 // import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { ResponseStatus } from './response-status';
 import { Exclude, Expose } from 'class-transformer';
 
@@ -45,16 +46,19 @@ export class ResponseEntity<T> {
   }
 
   @Expose()
+  @ApiProperty()
   get statusCode(): string {
     return this._statusCode;
   }
 
   @Expose()
+  @ApiProperty()
   get message(): string {
     return this._message;
   }
 
   @Expose()
+  @ApiProperty()
   get data(): T {
     return this._data;
   }
