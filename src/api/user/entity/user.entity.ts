@@ -1,16 +1,11 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { IUser } from '../interface/user.interface';
+import { BaseTimeEntity } from 'src/common/entity/response/base-time.entity';
 
 @Entity({
   name: 'users',
 })
-export class User implements IUser {
+export class User extends BaseTimeEntity implements IUser {
   @PrimaryGeneratedColumn()
   id: number;
   @Column({ type: 'varchar', length: 20 })
@@ -19,14 +14,4 @@ export class User implements IUser {
   password: string;
   @Column({ type: 'varchar', length: 40 })
   email: string;
-  @CreateDateColumn()
-  createdAt: string;
-  @UpdateDateColumn()
-  updatedAt: string;
-
-  constructor(email: string, password: string, name: string) {
-    this.email = email;
-    this.password = password;
-    this.name = name;
-  }
 }

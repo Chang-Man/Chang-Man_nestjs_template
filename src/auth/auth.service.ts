@@ -24,9 +24,7 @@ export class AuthService {
       throw new BadRequestException('Already registered email');
     }
     registerDto.password = await getHash(registerDto.password);
-    const newUser = await this.userService.create(
-      new User(registerDto.email, registerDto.password, registerDto.name),
-    );
+    const newUser = await this.userService.create(new User());
     return { email: newUser.email };
   }
 
