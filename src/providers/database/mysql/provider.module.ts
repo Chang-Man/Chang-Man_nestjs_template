@@ -11,6 +11,7 @@ import { User } from 'src/api/user/entity/user.entity';
       imports: [MysqlConfigModule],
       useFactory: async (mysqlConfigService: MysqlConfigService) => ({
         type: 'mysql' as DatabaseType,
+        timezone: '+09:00',
         host: mysqlConfigService.host,
         port: mysqlConfigService.port,
         username: mysqlConfigService.username,

@@ -8,7 +8,7 @@ export class UserService {
   async findOneByEmail(email: string): Promise<User | undefined> {
     return this.userRepository.findOneBy({ email });
   }
-  async create(user: User) {
-    return this.userRepository.create(user);
+  async create(user: User): Promise<void> {
+    await this.userRepository.save(user);
   }
 }

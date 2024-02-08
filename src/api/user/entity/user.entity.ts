@@ -3,10 +3,9 @@ import { IUser } from '../interface/user.interface';
 import { BaseTimeEntity } from 'src/common/entity/base-time.entity';
 import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { getHash } from 'src/common/utils/hash';
 
 @Entity({
-  name: 'users',
+  name: 'user',
 })
 export class User extends BaseTimeEntity implements IUser {
   @PrimaryGeneratedColumn()
@@ -19,7 +18,6 @@ export class User extends BaseTimeEntity implements IUser {
 
   @Exclude()
   @Column({ type: 'varchar', length: 60 })
-  @ApiProperty()
   password: string;
 
   @Expose()
@@ -33,8 +31,5 @@ export class User extends BaseTimeEntity implements IUser {
     user.email = email;
     user.password = password;
     return user;
-  }
-  async updateHashedPassword(): Promise<void> {
-    this.password = await getHash(this.password);
   }
 }

@@ -10,6 +10,7 @@ import { User } from 'src/api/user/entity/user.entity';
 import { Payload } from './interface/payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
+import { getHash } from 'src/common/utils/hash';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +23,9 @@ export class AuthService {
     if (userFind) {
       throw new BadRequestException('Already registered email');
     }
-    userFind.updateHashedPassword();
+    const password = await getHash(user.password);
+    user.password = password;
+    await this.userService.create(user);
     return user;
   }
 
