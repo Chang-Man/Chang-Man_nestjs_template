@@ -5,12 +5,12 @@ import {
 } from '@nestjs/common';
 import { UserService } from 'src/api/user/user.service';
 import { LoginDto } from './dto/login.dto';
-import { RegisterDto } from './dto/register.dto';
 import { User } from 'src/api/user/entity/user.entity';
 import { Payload } from './interface/payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 import { getHash } from 'src/common/utils/hash';
+import { LoginResponseDto } from './dto/login-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -29,11 +29,12 @@ export class AuthService {
     return user;
   }
 
-  async signIn(loginDto: LoginDto) {
+  async signIn(loginDto: LoginDto): Promise<LoginResponseDto> {
     const { email, password } = loginDto;
     const user = await this.userService.findOneByEmail(email);
     const validatePassword = await compare(loginDto.password, user.password);
-    if (!user || !validatePassword) throw new UnauthorizedException();
+    if (!user || !validatePassword)
+      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
 
     const payload: Payload = { id: user.id, email: user.email };
     return {
