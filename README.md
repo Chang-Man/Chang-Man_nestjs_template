@@ -20,7 +20,8 @@ docker compose up --build
 
 ```
 src
-├── authentication
+├── api
+├── auth
 ├── common
 │   ├── constants
 │   ├── decorators
