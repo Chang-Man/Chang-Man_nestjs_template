@@ -3,10 +3,10 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UsersService } from 'src/models/users/users.service';
+import { UsersService } from 'src/api/users/users.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
-import { User } from 'src/models/users/entities/user.entity';
+import { User } from 'src/api/users/entities/user.entity';
 import { getHash } from 'src/common/utils/hash';
 import { Payload } from './interfaces/payload.interface';
 import { JwtService } from '@nestjs/jwt';
