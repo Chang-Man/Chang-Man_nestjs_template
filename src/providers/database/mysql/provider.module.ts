@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { MysqlConfigModule } from '../../../config/database/mysql/config.module';
 import { MysqlConfigService } from '../../../config/database/mysql/config.service';
-import { User } from 'src/api/users/entities/user.entity';
+import { User } from 'src/api/user/entity/user.entity';
 
 @Module({
   imports: [

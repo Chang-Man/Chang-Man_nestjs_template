@@ -3,10 +3,10 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UsersService } from 'src/api/users/users.service';
+import { UserService } from 'src/api/user/user.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
-import { User } from 'src/api/users/entities/user.entity';
+import { User } from 'src/api/user/entity/user.entity';
 import { getHash } from 'src/common/utils/hash';
 import { Payload } from './interfaces/payload.interface';
 import { JwtService } from '@nestjs/jwt';
@@ -15,7 +15,7 @@ import { compare } from 'bcrypt';
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UsersService,
+    private userService: UserService,
     private jwtService: JwtService,
   ) {}
   async register(registerDto: RegisterDto) {

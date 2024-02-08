@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { IUser } from '../interfaces/user.interface';
+import { IUser } from '../interface/user.interface';
 
 @Entity({
   name: 'users',
