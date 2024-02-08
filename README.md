@@ -95,3 +95,4 @@ src
 1. [Nest.js Docs](https://docs.nestjs.com/)
 2. [Best Way to Structure Your Directory/Code (NestJS)](https://medium.com/the-crowdlinker-chronicle/best-way-to-structure-your-directory-code-nestjs-a06c7a641401)
 3. [How to write a NestJS Dockerfile optimized for production](https://www.tomray.dev/nestjs-docker-production)
+4. [Nestjs에서 Swagger를 사용하는 방법](https://jhyeok.com/nestjs-swagger/)
