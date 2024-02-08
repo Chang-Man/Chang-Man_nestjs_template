@@ -18,19 +18,18 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
   ) {}
-  async register(registerDto: RegisterDto) {
-    const userFind = await this.userService.findOne(registerDto.email);
+  async register(user: User): Promise<User> {
+    const userFind = await this.userService.findOneByEmail(user.email);
     if (userFind) {
       throw new BadRequestException('Already registered email');
     }
-    registerDto.password = await getHash(registerDto.password);
-    const newUser = await this.userService.create(new User());
-    return { email: newUser.email };
+    userFind.updateHashedPassword();
+    return user;
   }
 
   async signIn(loginDto: LoginDto) {
     const { email, password } = loginDto;
-    const user = await this.userService.findOne(email);
+    const user = await this.userService.findOneByEmail(email);
     const validatePassword = await compare(loginDto.password, user.password);
     if (!user || !validatePassword) throw new UnauthorizedException();
 
