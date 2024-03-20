@@ -4,7 +4,7 @@ import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ResponseEntity } from 'src/common/entity/response/response.entity';
-import { User } from 'src/api/user/entity/user.entity';
+import { User } from 'src/model/user/user.entity';
 import { ApiOkResponseObject } from 'src/common/decorators/swagger/api-response.decorator';
 import { LoginResponseDto } from './dto/login-response.dto';
 

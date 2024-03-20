@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { IsString, MaxLength } from 'class-validator';
-import { User } from 'src/api/user/entity/user.entity';
+import { User } from 'src/model/user/user.entity';
 import { getHash } from 'src/common/utils/hash';
 
 export class RegisterDto {

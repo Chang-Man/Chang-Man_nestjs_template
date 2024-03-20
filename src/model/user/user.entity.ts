@@ -1,5 +1,4 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { IUser } from '../interface/user.interface';
 import { BaseTimeEntity } from 'src/common/entity/base-time.entity';
 import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
@@ -7,7 +6,7 @@ import { ApiProperty } from '@nestjs/swagger';
 @Entity({
   name: 'user',
 })
-export class User extends BaseTimeEntity implements IUser {
+export class User extends BaseTimeEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
