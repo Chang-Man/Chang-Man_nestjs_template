@@ -4,12 +4,13 @@
 
 FROM node:18-alpine As development
 
-# Create app directory
+# Install tzdata
+RUN apk add --no-cache tzdata
+# Set timezone
+ENV TZ=Asia/Seoul
+
 WORKDIR /usr/src/app
 
-# Copy application dependency manifests to the container image.
-# A wildcard is used to ensure copying both package.json AND package-lock.json (when available).
-# Copying this first prevents re-running npm install on every code change.
 COPY --chown=node:node package*.json ./
 
 # Install app dependencies using the `npm ci` command instead of `npm install`
@@ -26,6 +27,11 @@ USER node
 ###################
 
 FROM node:18-alpine As build
+
+# Install tzdata
+RUN apk add --no-cache tzdata
+# Set timezone
+ENV TZ=Asia/Seoul
 
 WORKDIR /usr/src/app
 
@@ -56,6 +62,7 @@ FROM node:18-alpine As production
 # Copy the bundled code from the build stage to the production image
 COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node --from=build /usr/src/app/dist ./dist
+COPY --chown=node:node .env ./
 
 # Start the server using the production build
 CMD [ "node", "dist/main.js" ]
