@@ -3,13 +3,13 @@ import { AppConfigModule } from './config/app/config.module';
 import { UserModule } from './api/user/user.module';
 import { UserService } from './api/user/user.service';
 import { AuthModule } from './auth/auth.module';
-import { MysqlDatabaseProviderModule } from './providers/database/mysql/provider.module';
+import { PostgresDatabaseProviderModule } from './providers/database/postgres/provider.module';
 
 @Module({
   imports: [
     AppConfigModule,
     UserModule,
-    MysqlDatabaseProviderModule,
+    PostgresDatabaseProviderModule,
     AuthModule,
   ],
   controllers: [],
