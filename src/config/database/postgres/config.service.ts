@@ -5,19 +5,7 @@ import { ConfigService } from '@nestjs/config';
 export class PostgresConfigService {
   constructor(private configService: ConfigService) {}
 
-  get name(): string {
-    return this.configService.get<string>('postgres.name');
-  }
-  get username(): string {
-    return this.configService.get<string>('postgres.username');
-  }
-  get password(): string {
-    return this.configService.get<string>('postgres.password');
-  }
-  get host(): string {
-    return this.configService.get<string>('postgres.host');
-  }
-  get port(): number {
-    return Number(this.configService.get<number>('postgres.port'));
+  get postgresConfig() {
+    return this.configService.get('postgres');
   }
 }
